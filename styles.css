@@ -1,313 +1,144 @@
-/* ==========================================================================
-   RESET GENERAL & TONO DE INVESTIGACIÓN CRÍTICA (EL COMERCIO STYLES)
-   ========================================================================== */
+/* =========================================
+   1. RESET Y BASE (TODO BLANCO)
+   ========================================= */
 body, html {
-    margin: 0; 
-    padding: 0; 
-    background-color: #fcfcfc; 
-    font-family: 'Arial', sans-serif;
-    color: #222;
-    scroll-behavior: smooth; /* Scroll nativo suave al hacer click en el menú */
+    margin: 0; padding: 0; 
+    background-color: #ffffff; 
+    font-family: 'Arial', sans-serif; 
+    /* Usamos clip en lugar de hidden para no romper el position: sticky */
+    overflow-x: clip; 
 }
 
-/* Cabecera del One-Pager */
-.special-header {
-    max-width: 900px; 
-    margin: 50px auto 30px auto;
-    padding: 0 20px;
-    text-align: center;
+/* =========================================
+   2. IMAGEN SUPERIOR (FULL WIDTH)
+   ========================================= */
+.top-hero-image {
+    width: 100%; height: auto;
+    max-height: 70vh; 
+    object-fit: cover; display: block;
 }
-.kicker { margin-bottom: 20px; display: flex; justify-content: center; }
-.kicker img { height: 32px; width: auto; }
+
+/* =========================================
+   3. HEADER ESTÁNDAR
+   ========================================= */
+.special-header {
+    max-width: 800px; margin: 50px auto 40px auto; 
+    padding: 0 20px; text-align: center;
+}
+.kicker { margin-bottom: 25px; display: flex; justify-content: center; align-items: center; }
+.kicker img { height: 35px; width: auto; display: block; max-width: 100%; }
 
 .headline {
-    font-family: 'Georgia', serif; 
-    font-size: 68px; font-weight: 900; color: #111;
-    line-height: 1.05; margin: 0 0 10px 0;
-    letter-spacing: -2px; 
-}
-.subheadline {
-    font-family: 'Georgia', serif;
-    font-size: 34px; font-weight: 400; color: #444;
-    line-height: 1.2; margin: 0 0 25px 0;
-}
-.intro-text {
-    font-size: 17px; color: #444; line-height: 1.6;
-    max-width: 750px; margin: 0 auto 20px auto;
-}
-.header-divider { width: 60px; height: 1px; background-color: #111; margin: 25px auto 15px auto; }
-.date-published { font-size: 13px; color: #666; font-style: italic; }
-
-/* ==========================================================================
-   BARRA INTERACTIVA DE MACRO TEMAS (DIRECCIÓN DE ARTE ADHESIVA)
-   ========================================================================== */
-.macro-nav-bar {
-    position: sticky;
-    top: 0;
-    background: #ffffff;
-    border-top: 1px solid #ddd;
-    border-bottom: 2px solid #111;
-    z-index: 2000;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
-}
-.nav-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
-    overflow-x: auto;
-    white-space: nowrap;
-}
-.nav-tab {
-    background: none;
-    border: none;
-    padding: 18px 24px;
-    font-family: 'Arial', sans-serif;
-    font-size: 14px;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #666;
-    cursor: pointer;
-    position: relative;
-    transition: color 0.2s ease;
-    display: flex;
-    align-items: center;
-}
-.nav-tab:hover {
-    color: #111;
-}
-.nav-tab.active {
-    color: #111;
-}
-.nav-tab.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background-color: #111;
+    font-family: 'Georgia', 'Times New Roman', serif; 
+    font-size: 76px; font-weight: 900; color: #111;
+    line-height: 1.05; margin-top: 0; margin-bottom: 25px;
+    letter-spacing: -1.5px; 
 }
 
-/* Caja Instrucciones */
-.instrucciones-caja {
-    max-width: 750px; margin: 35px auto;
-    background-color: #f4f4f4; border-left: 4px solid #111;
-    padding: 18px 22px; border-radius: 0 4px 4px 0;
-}
-.instrucciones-titulo { font-weight: 900; font-size: 14px; display: block; margin-bottom: 8px; text-transform: uppercase; }
-.instrucciones-caja ul { margin: 0; padding-left: 18px; }
-.instrucciones-caja li { font-size: 13.5px; line-height: 1.5; margin-bottom: 6px; color: #444; }
+.intro-text { font-size: 18px; color: #444; line-height: 1.6; margin-bottom: 25px; }
+.header-divider { width: 50px; height: 1px; background-color: #333; margin: 30px auto 15px auto; }
+.date-published { font-size: 14px; color: #444; letter-spacing: normal; margin-bottom: 15px; }
 
-/* ==========================================================================
-   LAYOUT Y ARQUITECTURA DE TARJETAS (SCROLL NATIVO)
-   ========================================================================== */
-.comparador-wrapper {
-    max-width: 1100px;
-    margin: 40px auto 80px auto;
-    padding: 0 20px;
+.social-share-container { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 15px; }
+.social-btn {
+    display: flex; justify-content: center; align-items: center;
+    width: 38px; height: 38px; border: 1px solid #333;
+    border-radius: 4px; color: #333; text-decoration: none;
+    background-color: transparent; transition: all 0.2s ease;
 }
+.social-btn:hover { background-color: #333; color: #ffffff; transform: translateY(-2px); }
 
-/* Cada subtema ocupa una pantalla completa para simular el parallax/snapping de forma limpia */
-.subtema-bloque {
-    min-height: 90vh; /* Se asegura de ocupar casi toda la pantalla */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px 0;
-    border-bottom: 2px dashed #ddd;
-    animation: fadeIn 0.5s ease-in-out;
-}
-.subtema-bloque:last-child { 
-    border-bottom: none; 
+/* =========================================
+   4. LAYOUT STICKY (TEXTO + IMÁGENES)
+   ========================================= */
+.sticky-wrapper {
+    display: flex; justify-content: center; align-items: flex-start;
+    gap: 30px; max-width: 1600px; margin: 0 auto; padding: 0 20px;
+    /* position: relative es vital aquí para que el sticky sepa sus límites */
+    position: relative; 
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+.side-img-container {
+    /* Aquí ocurre la magia. Esto hace que la foto se pegue a la pantalla */
+    position: -webkit-sticky; 
+    position: sticky; 
+    top: 15vh; /* Las fotos se quedarán fijas a un 15% del tope de tu pantalla */
+    width: 350px; 
+    flex-shrink: 0;
+}
+.side-img { width: 100%; height: auto; display: block; }
+
+.center-column {
+    flex: 1; max-width: 750px; 
 }
 
-.subtema-title {
-    font-family: 'Georgia', serif;
-    font-size: 28px;
-    font-weight: 900;
-    color: #111;
-    text-align: center;
-    margin-bottom: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
+/* Textos Centrales */
+.story-text { margin-bottom: 40px; }
+.story-text p { font-family: 'Arial', sans-serif; font-size: 18px; line-height: 1.6; color: #333; margin-bottom: 20px; }
+
+/* =========================================
+   5. TARJETAS DE FACT-CHECKING
+   ========================================= */
+.fact-feed { display: flex; flex-direction: column; gap: 35px; margin-bottom: 60px; }
+
+.fact-card {
+    border: 1px solid #e0e0e0; border-radius: 6px; padding: 30px;
+    background-color: #ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    border-top: 5px solid #ccc; /* Dinámico JS */
 }
 
-.split-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    align-items: start;
+.fact-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;
+}
+.fact-author { font-weight: 900; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; }
+.author-keiko { color: #f57c00; } 
+.author-sanchez { color: #2e7d32; } 
+
+.fact-badge {
+    padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 900;
+    color: #fff; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.badge-verdadero { background-color: #4caf50; }
+.badge-falso { background-color: #e53935; }
+.badge-enganoso { background-color: #fb8c00; color: #111; }
+
+.fact-quote {
+    font-family: 'Georgia', serif; font-size: 24px; font-style: italic;
+    color: #111; line-height: 1.4; margin: 0 0 20px 0;
+}
+.fact-quote::before { content: "“"; color: #ccc; font-size: 34px; line-height: 0; vertical-align: bottom; }
+.fact-quote::after { content: "”"; color: #ccc; font-size: 34px; line-height: 0; vertical-align: bottom; }
+
+.fact-explanation { font-size: 16px; color: #444; line-height: 1.6; margin: 0; }
+.fact-explanation strong { color: #111; }
+
+/* =========================================
+   6. FOOTER DE CRÉDITOS (FULL WIDTH)
+   ========================================= */
+.special-credits-black { background-color: #111111; color: #ffffff; padding: 70px 20px; text-align: center; width: 100%; box-sizing: border-box; }
+.credits-logo-container { margin-top: 40px; }
+.credits-logo-container img { height: 75px; width: auto; display: block; margin: 0 auto; filter: brightness(0) invert(1); }
+.copyright-text { font-family: 'Arial', sans-serif; font-size: 11px; color: #777777; margin-top: 15px; letter-spacing: 0.5px; }
+.credits-main-title { font-family: 'Georgia', 'Times New Roman', serif; font-size: 22px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin-top: 0; margin-bottom: 40px; color: #ffffff; }
+.credit-block { margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; }
+.credit-role { font-family: 'Arial', sans-serif; font-size: 11px; font-weight: bold; text-transform: uppercase; color: #aaaaaa; margin-bottom: 5px; letter-spacing: 1.5px; }
+.credit-name { font-family: 'Georgia', serif; font-size: 18px; color: #ffffff; }
+
+/* =========================================
+   7. MEDIA QUERIES (RESPONSIVE)
+   ========================================= */
+@media (max-width: 1300px) {
+    .side-img-container { width: 250px; }
 }
 
-/* Tarjetas Electorales */
-.cand-card {
-    border-radius: 6px;
-    padding: 24px;
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-top: 5px solid #ccc;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 250px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+@media (max-width: 1024px) {
+    .side-img-container { display: none; } 
+    .headline { font-size: 50px; letter-spacing: -0.5px; }
 }
 
-.cand-header-sticky {
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-.cand-name {
-    display: block;
-    font-size: 21px;
-    font-weight: 900;
-    text-transform: uppercase;
-}
-.cand-party {
-    display: block;
-    font-size: 11px;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 2px;
-}
-
-.quote-text {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #111;
-    font-style: italic;
-    margin: 0 0 15px 0;
-}
-
-.meta-data {
-    font-size: 12px;
-    color: #777;
-    margin-bottom: 16px;
-}
-.meta-data a {
-    color: #111;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-/* ALERTA DE CAMBIO DE POSTURA */
-.alerta-cambio {
-    display: table;
-    background-color: #d32f2f;
-    color: white;
-    font-family: 'Arial', sans-serif;
-    font-size: 11px;
-    font-weight: 900;
-    padding: 5px 10px;
-    border-radius: 4px;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    animation: pulse 2s infinite;
-}
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); }
-    70% { box-shadow: 0 0 0 6px rgba(211, 47, 47, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
-}
-
-/* Componente Flip-Flop */
-.btn-flipflop {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: #fff;
-    border: 1.5px solid;
-    padding: 8px 14px;
-    border-radius: 4px;
-    font-size: 12.5px;
-    font-weight: 900;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.2s ease;
-}
-
-.contradiccion-box {
-    margin-top: 15px;
-    padding: 15px;
-    background: #fdfdfd;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-}
-.contradiccion-label {
-    display: block;
-    font-size: 10.5px;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #c0392b;
-    margin-bottom: 6px;
-}
-.quote-text-old {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #555;
-    font-style: italic;
-    margin: 0 0 8px 0;
-}
-
-/* Bloque Plan de Gobierno */
-.plan-badge {
-    margin-top: 15px;
-    padding: 12px;
-    background: #fcfcfc;
-    border-radius: 4px;
-    font-size: 12.5px;
-    line-height: 1.45;
-    color: #444;
-    border-left: 3px solid #777;
-    border-top: 1px solid #f0f0f0;
-    border-right: 1px solid #f0f0f0;
-    border-bottom: 1px solid #f0f0f0;
-}
-.plan-badge-title {
-    display: block;
-    font-size: 10px;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #222;
-    margin-bottom: 3px;
-}
-
-/* Footer Créditos */
-.special-credits-black {
-    background-color: #111111;
-    color: #ffffff;
-    padding: 55px 20px;
-    text-align: center;
-}
-.credits-logo-container { margin-top: 35px; }
-.credits-logo-container img { height: 40px; filter: brightness(0) invert(1); }
-.copyright-text { font-size: 11px; color: #666; margin-top: 12px; }
-
-.credits-main-title { font-family: 'Georgia', serif; font-size: 18px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 35px; }
-.credit-block { margin-bottom: 20px; }
-.credit-role { font-size: 11px; font-weight: bold; text-transform: uppercase; color: #888; margin-bottom: 4px; display: block; }
-.credit-name { font-family: 'Georgia', serif; font-size: 16px; }
-
-/* ==========================================================================
-   MEDIA QUERIES MÓVIL (MOBILE-FIRST)
-   ========================================================================== */
-@media (max-width: 800px) {
-    .headline { font-size: 44px; letter-spacing: -1px; }
-    .subheadline { font-size: 26px; }
-    .split-layout { grid-template-columns: 1fr; gap: 15px; }
-    .nav-tab { padding: 14px 16px; font-size: 13px; }
-    .subtema-bloque { min-height: auto; padding: 40px 0; }
+@media (max-width: 768px) {
+    .headline { font-size: 40px; }
+    .fact-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .fact-quote { font-size: 20px; }
 }
