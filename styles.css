@@ -141,6 +141,17 @@ body, html {
 .fact-explanation { font-size: 16px; color: #444; line-height: 1.6; margin: 0; }
 .fact-explanation strong { color: #111; }
 
+/* Fuente de los datos */
+.fact-source {
+    font-size: 13px; color: #888; margin: 15px 0 0 0;
+    padding-top: 15px; border-top: 1px dashed #eee;
+    font-family: 'Arial', sans-serif; line-height: 1.4;
+}
+.fact-source strong {
+    color: #555; text-transform: uppercase; font-size: 11px;
+    letter-spacing: 0.5px; margin-right: 4px;
+}
+
 
 
 
@@ -177,7 +188,7 @@ body, html {
    ========================================= */
 .special-credits-black { background-color: #111111; color: #ffffff; padding: 70px 20px; text-align: center; width: 100%; box-sizing: border-box; }
 .credits-logo-container { margin-top: 40px; }
-.credits-logo-container img { height: 75px; width: auto; display: block; margin: 0 auto; filter: brightness(0) invert(1); }
+.credits-logo-container img { height: 40px; width: auto; display: block; margin: 0 auto; filter: brightness(0) invert(1); }
 .copyright-text { font-family: 'Arial', sans-serif; font-size: 11px; color: #777777; margin-top: 15px; letter-spacing: 0.5px; }
 .credits-main-title { font-family: 'Georgia', 'Times New Roman', serif; font-size: 22px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin-top: 0; margin-bottom: 40px; color: #ffffff; }
 .credit-block { margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; }

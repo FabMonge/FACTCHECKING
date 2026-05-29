@@ -3,7 +3,7 @@
 // ===============================================
 const CONFIG = {
     archivos: {
-        datos: "fact_checking_debate.csv" 
+        datos: "data_factchecking_debate.csv" // Conexión directa a la plantilla
     },
     iconos: {
         "VERDADERO": `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>`,
@@ -34,50 +34,27 @@ const CONFIG = {
 };
 
 // ===============================================
-// DATOS HARDCODEADOS PARA EL BOCETO
-// ===============================================
-const datosPrueba = [
-    {
-        candidato: "Keiko Fujimori",
-        frase: "Durante mi gestión, la pobreza se redujo del 30% al 20% en todo el país.",
-        calificacion: "VERDADERO",
-        explicacion: "De acuerdo con los datos del Instituto Nacional de Estadística e Informática (INEI), la pobreza monetaria total a nivel nacional se redujo de 30,1% a 20,2%. Esta disminución equivale a 9,9 puntos porcentuales."
-    },
-    {
-        candidato: "Roberto Sánchez",
-        frase: "Suspendimos temporalmente el peaje porque la concesionaria incumplió con el 80% de las obras prometidas en el contrato original.",
-        calificacion: "ENGAÑOSO",
-        explicacion: "Si bien hubo un incumplimiento de obras que motivó arbitrajes, el porcentaje real documentado por la Contraloría es del 35%, no del 80%. La cifra fue exagerada durante su gestión."
-    },
-    {
-        candidato: "Keiko Fujimori",
-        frase: "El gobierno actual ha reducido la inversión en seguridad en un 40% durante los últimos dos años.",
-        calificacion: "FALSO",
-        explicacion: "Los datos oficiales del Ministerio de Economía muestran que el presupuesto de seguridad ciudadana aumentó un 12% en el último año fiscal. La afirmación no se sustenta en la evidencia pública."
-    }
-];
-
-// ===============================================
 // MOTOR DE RENDERIZADO
 // ===============================================
 function renderizarTarjetas(datos) {
     const contenedor = document.getElementById('fact-checking-feed');
     
     if (!datos || datos.length === 0) {
-        contenedor.innerHTML = `<p style="text-align:center; color:#e53935;">⚠️ Error: No hay datos disponibles para mostrar.</p>`;
+        contenedor.innerHTML = `<p style="text-align:center; color:#e53935;">⚠️ Esperando datos del debate...</p>`;
         return;
     }
 
     let htmlAcumulado = '';
 
     datos.forEach(item => {
-        // Obtenemos configuración, evitando errores si el nombre está mal escrito
-        const configCand = CONFIG.colores.candidatos[item.candidato] || { clase: "", borde: "#ccc", foto: "https://via.placeholder.com/55", descripcion: "Candidato a la Presidencia" };
-        const keyCalificacion = item.calificacion.toUpperCase();
+        // Validación de seguridad por si hay una fila en blanco
+        if (!item.candidato || !item.frase) return;
+
+        const configCand = CONFIG.colores.candidatos[item.candidato.trim()] || { clase: "", borde: "#ccc", foto: "https://via.placeholder.com/55", descripcion: "Candidato a la Presidencia" };
+        const keyCalificacion = (item.calificacion || "").trim().toUpperCase();
         const claseBadge = CONFIG.colores.calificaciones[keyCalificacion] || "";
         const iconoSVG = CONFIG.iconos[keyCalificacion] || "";
 
-        // Maquetación de la tarjeta con imagen de burbuja
         htmlAcumulado += `
             <article class="fact-card" style="border-top-color: ${configCand.borde};">
                 <div class="fact-header">
@@ -95,6 +72,7 @@ function renderizarTarjetas(datos) {
                 </div>
                 <p class="fact-quote">${item.frase}</p>
                 <p class="fact-explanation"><strong>Explicación:</strong> ${item.explicacion}</p>
+                <p class="fact-source"><strong>Fuente:</strong> ${item.fuente}</p>
             </article>
         `;
     });
@@ -102,12 +80,30 @@ function renderizarTarjetas(datos) {
     contenedor.innerHTML = htmlAcumulado;
 }
 
-// Inicializamos el boceto
+// ===============================================
+// CARGA DE DATOS (PAPAPARSE) Y ARRANQUE
+// ===============================================
 document.addEventListener('DOMContentLoaded', () => {
-    try {
-        renderizarTarjetas(datosPrueba);
-    } catch (error) {
-        console.error("Error crítico cargando las tarjetas:", error);
-        document.getElementById('fact-checking-feed').innerHTML = "⚠️ Ocurrió un problema al cargar el panel de fact-checking.";
-    }
+    Papa.parse(CONFIG.archivos.datos, {
+        download: true,       // Descarga el archivo CSV
+        header: true,         // Usa la primera fila como llaves del objeto
+        skipEmptyLines: true, // Ignora saltos de línea vacíos al final del excel
+        complete: function(results) {
+            try {
+                if (results.errors.length > 0 && results.data.length === 0) {
+                    console.error("Errores en el parseo:", results.errors);
+                    throw new Error("Formato de CSV inválido");
+                }
+                // Si todo sale bien, mandamos la data a renderizar
+                renderizarTarjetas(results.data);
+            } catch (error) {
+                console.error("Error crítico procesando los datos:", error);
+                document.getElementById('fact-checking-feed').innerHTML = "<p style='text-align:center;'>⚠️ Ocurrió un problema procesando las tarjetas.</p>";
+            }
+        },
+        error: function(err) {
+            console.error("Error de red o archivo no encontrado:", err);
+            document.getElementById('fact-checking-feed').innerHTML = "<p style='text-align:center;'>⚠️ No se pudo cargar el archivo de datos. Verifica que el CSV esté en la carpeta correcta.</p>";
+        }
+    });
 });
