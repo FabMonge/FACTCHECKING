@@ -1,0 +1,144 @@
+/* =========================================
+   1. RESET Y BASE (TODO BLANCO)
+   ========================================= */
+body, html {
+    margin: 0; padding: 0; 
+    background-color: #ffffff; 
+    font-family: 'Arial', sans-serif; 
+    /* Usamos clip en lugar de hidden para no romper el position: sticky */
+    overflow-x: clip; 
+}
+
+/* =========================================
+   2. IMAGEN SUPERIOR (FULL WIDTH)
+   ========================================= */
+.top-hero-image {
+    width: 100%; height: auto;
+    max-height: 70vh; 
+    object-fit: cover; display: block;
+}
+
+/* =========================================
+   3. HEADER ESTÁNDAR
+   ========================================= */
+.special-header {
+    max-width: 800px; margin: 50px auto 40px auto; 
+    padding: 0 20px; text-align: center;
+}
+.kicker { margin-bottom: 25px; display: flex; justify-content: center; align-items: center; }
+.kicker img { height: 35px; width: auto; display: block; max-width: 100%; }
+
+.headline {
+    font-family: 'Georgia', 'Times New Roman', serif; 
+    font-size: 76px; font-weight: 900; color: #111;
+    line-height: 1.05; margin-top: 0; margin-bottom: 25px;
+    letter-spacing: -1.5px; 
+}
+
+.intro-text { font-size: 18px; color: #444; line-height: 1.6; margin-bottom: 25px; }
+.header-divider { width: 50px; height: 1px; background-color: #333; margin: 30px auto 15px auto; }
+.date-published { font-size: 14px; color: #444; letter-spacing: normal; margin-bottom: 15px; }
+
+.social-share-container { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 15px; }
+.social-btn {
+    display: flex; justify-content: center; align-items: center;
+    width: 38px; height: 38px; border: 1px solid #333;
+    border-radius: 4px; color: #333; text-decoration: none;
+    background-color: transparent; transition: all 0.2s ease;
+}
+.social-btn:hover { background-color: #333; color: #ffffff; transform: translateY(-2px); }
+
+/* =========================================
+   4. LAYOUT STICKY (TEXTO + IMÁGENES)
+   ========================================= */
+.sticky-wrapper {
+    display: flex; justify-content: center; align-items: flex-start;
+    gap: 30px; max-width: 1600px; margin: 0 auto; padding: 0 20px;
+    /* position: relative es vital aquí para que el sticky sepa sus límites */
+    position: relative; 
+}
+
+.side-img-container {
+    /* Aquí ocurre la magia. Esto hace que la foto se pegue a la pantalla */
+    position: -webkit-sticky; 
+    position: sticky; 
+    top: 15vh; /* Las fotos se quedarán fijas a un 15% del tope de tu pantalla */
+    width: 350px; 
+    flex-shrink: 0;
+}
+.side-img { width: 100%; height: auto; display: block; }
+
+.center-column {
+    flex: 1; max-width: 750px; 
+}
+
+/* Textos Centrales */
+.story-text { margin-bottom: 40px; }
+.story-text p { font-family: 'Arial', sans-serif; font-size: 18px; line-height: 1.6; color: #333; margin-bottom: 20px; }
+
+/* =========================================
+   5. TARJETAS DE FACT-CHECKING
+   ========================================= */
+.fact-feed { display: flex; flex-direction: column; gap: 35px; margin-bottom: 60px; }
+
+.fact-card {
+    border: 1px solid #e0e0e0; border-radius: 6px; padding: 30px;
+    background-color: #ffffff; box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    border-top: 5px solid #ccc; /* Dinámico JS */
+}
+
+.fact-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;
+}
+.fact-author { font-weight: 900; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; }
+.author-keiko { color: #f57c00; } 
+.author-sanchez { color: #2e7d32; } 
+
+.fact-badge {
+    padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 900;
+    color: #fff; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.badge-verdadero { background-color: #4caf50; }
+.badge-falso { background-color: #e53935; }
+.badge-enganoso { background-color: #fb8c00; color: #111; }
+
+.fact-quote {
+    font-family: 'Georgia', serif; font-size: 24px; font-style: italic;
+    color: #111; line-height: 1.4; margin: 0 0 20px 0;
+}
+.fact-quote::before { content: "“"; color: #ccc; font-size: 34px; line-height: 0; vertical-align: bottom; }
+.fact-quote::after { content: "”"; color: #ccc; font-size: 34px; line-height: 0; vertical-align: bottom; }
+
+.fact-explanation { font-size: 16px; color: #444; line-height: 1.6; margin: 0; }
+.fact-explanation strong { color: #111; }
+
+/* =========================================
+   6. FOOTER DE CRÉDITOS (FULL WIDTH)
+   ========================================= */
+.special-credits-black { background-color: #111111; color: #ffffff; padding: 70px 20px; text-align: center; width: 100%; box-sizing: border-box; }
+.credits-logo-container { margin-top: 40px; }
+.credits-logo-container img { height: 75px; width: auto; display: block; margin: 0 auto; filter: brightness(0) invert(1); }
+.copyright-text { font-family: 'Arial', sans-serif; font-size: 11px; color: #777777; margin-top: 15px; letter-spacing: 0.5px; }
+.credits-main-title { font-family: 'Georgia', 'Times New Roman', serif; font-size: 22px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; margin-top: 0; margin-bottom: 40px; color: #ffffff; }
+.credit-block { margin-bottom: 25px; display: flex; flex-direction: column; align-items: center; }
+.credit-role { font-family: 'Arial', sans-serif; font-size: 11px; font-weight: bold; text-transform: uppercase; color: #aaaaaa; margin-bottom: 5px; letter-spacing: 1.5px; }
+.credit-name { font-family: 'Georgia', serif; font-size: 18px; color: #ffffff; }
+
+/* =========================================
+   7. MEDIA QUERIES (RESPONSIVE)
+   ========================================= */
+@media (max-width: 1300px) {
+    .side-img-container { width: 250px; }
+}
+
+@media (max-width: 1024px) {
+    .side-img-container { display: none; } 
+    .headline { font-size: 50px; letter-spacing: -0.5px; }
+}
+
+@media (max-width: 768px) {
+    .headline { font-size: 40px; }
+    .fact-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .fact-quote { font-size: 20px; }
+}
