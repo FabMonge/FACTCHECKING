@@ -5,7 +5,6 @@ body, html {
     margin: 0; padding: 0; 
     background-color: #ffffff; 
     font-family: 'Arial', sans-serif; 
-    /* Usamos clip en lugar de hidden para no romper el position: sticky */
     overflow-x: clip; 
 }
 
@@ -54,15 +53,13 @@ body, html {
 .sticky-wrapper {
     display: flex; justify-content: center; align-items: flex-start;
     gap: 30px; max-width: 1600px; margin: 0 auto; padding: 0 20px;
-    /* position: relative es vital aquí para que el sticky sepa sus límites */
     position: relative; 
 }
 
 .side-img-container {
-    /* Aquí ocurre la magia. Esto hace que la foto se pegue a la pantalla */
     position: -webkit-sticky; 
     position: sticky; 
-    top: 15vh; /* Las fotos se quedarán fijas a un 15% del tope de tu pantalla */
+    top: 15vh; 
     width: 350px; 
     flex-shrink: 0;
 }
@@ -79,7 +76,7 @@ body, html {
 /* =========================================
    5. TARJETAS DE FACT-CHECKING
    ========================================= */
-.fact-feed { display: flex; flex-direction: column; gap: 35px; margin-bottom: 60px; }
+.fact-feed { display: flex; flex-direction: column; gap: 35px; margin-bottom: 40px; }
 
 .fact-card {
     border: 1px solid #e0e0e0; border-radius: 6px; padding: 30px;
@@ -87,34 +84,96 @@ body, html {
     border-top: 5px solid #ccc; /* Dinámico JS */
 }
 
+/* Cabecera con Foto y Badge alineados */
 .fact-header {
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    flex-wrap: wrap; gap: 15px;
     margin-bottom: 20px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px;
 }
-.fact-author { font-weight: 900; font-size: 15px; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Contenedor del Autor (Foto + Textos) */
+.fact-author-wrapper {
+    display: flex; align-items: center; gap: 15px;
+}
+
+.fact-author-img {
+    width: 55px; height: 55px;
+    border-radius: 50%;
+    object-fit: cover; 
+    object-position: top center; /* Encuadra el rostro hacia arriba */
+    border: 2px solid #eaeaea;
+    background-color: #f9f9f9;
+}
+
+.fact-author-text {
+    display: flex; flex-direction: column;
+}
+
+.fact-author-name { 
+    font-weight: 900; font-size: 16px; text-transform: uppercase; 
+    letter-spacing: 0.5px; line-height: 1.2; margin-bottom: 3px;
+}
 .author-keiko { color: #f57c00; } 
 .author-sanchez { color: #2e7d32; } 
 
-.fact-badge {
-    padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 900;
-    color: #fff; text-transform: uppercase; letter-spacing: 0.5px;
+.fact-author-desc {
+    font-size: 13px; color: #666; margin: 0;
 }
-.badge-verdadero { background-color: #4caf50; }
-.badge-falso { background-color: #e53935; }
-.badge-enganoso { background-color: #fb8c00; color: #111; }
 
-.fact-quote {
-    font-family: 'Georgia', serif; font-size: 24px; font-style: italic;
-    color: #111; line-height: 1.4; margin: 0 0 20px 0;
+/* Botón con Icono */
+.fact-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: 0.5px; margin-top: 5px;
 }
-.fact-quote::before { content: "“"; color: #ccc; font-size: 34px; line-height: 0; vertical-align: bottom; }
-.fact-quote::after { content: "”"; color: #ccc; font-size: 34px; line-height: 0; vertical-align: bottom; }
+.badge-verdadero { background-color: #4caf50; color: #fff; }
+.badge-falso { background-color: #e53935; color: #fff; }
+.badge-enganoso { background-color: #ffb300; color: #111; } 
+
+/* Comillas Amarillas */
+.fact-quote {
+    font-family: 'Georgia', serif; font-size: 22px; font-style: italic; font-weight: bold;
+    color: #111; line-height: 1.5; margin: 0 0 20px 0; position: relative;
+}
+.fact-quote::before { content: "“"; color: #ffb300; font-size: 38px; line-height: 0; vertical-align: bottom; margin-right: 4px; }
+.fact-quote::after { content: "”"; color: #ffb300; font-size: 38px; line-height: 0; vertical-align: bottom; margin-left: 4px; }
 
 .fact-explanation { font-size: 16px; color: #444; line-height: 1.6; margin: 0; }
 .fact-explanation strong { color: #111; }
 
+
+
+
+
+
+
 /* =========================================
-   6. FOOTER DE CRÉDITOS (FULL WIDTH)
+   6. LEYENDA EXPLICATIVA (Inspirado en Canva)
+   ========================================= */
+.leyenda-seccion {
+    border-top: 1px solid #eee; padding-top: 30px; margin-bottom: 60px;
+    text-align: center;
+}
+.leyenda-titulo {
+    font-family: 'Arial', sans-serif; font-size: 13px; font-weight: 900;
+    color: #111; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 25px 0;
+}
+.leyenda-grid {
+    display: flex; justify-content: space-between; gap: 20px;
+}
+.leyenda-item {
+    flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.leyenda-icono { margin-bottom: 8px; }
+.leyenda-item strong { font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.leyenda-item p { font-size: 12px; color: #666; line-height: 1.4; margin: 0; }
+
+.color-verdadero { color: #4caf50; }
+.color-falso { color: #e53935; }
+.color-enganoso { color: #ffb300; }
+
+/* =========================================
+   7. FOOTER DE CRÉDITOS (FULL WIDTH)
    ========================================= */
 .special-credits-black { background-color: #111111; color: #ffffff; padding: 70px 20px; text-align: center; width: 100%; box-sizing: border-box; }
 .credits-logo-container { margin-top: 40px; }
@@ -126,7 +185,7 @@ body, html {
 .credit-name { font-family: 'Georgia', serif; font-size: 18px; color: #ffffff; }
 
 /* =========================================
-   7. MEDIA QUERIES (RESPONSIVE)
+   8. MEDIA QUERIES (RESPONSIVE)
    ========================================= */
 @media (max-width: 1300px) {
     .side-img-container { width: 250px; }
@@ -141,4 +200,7 @@ body, html {
     .headline { font-size: 40px; }
     .fact-header { flex-direction: column; align-items: flex-start; gap: 10px; }
     .fact-quote { font-size: 20px; }
+    /* Apilamos la leyenda en móviles para que se lea perfecto */
+    .leyenda-grid { flex-direction: column; gap: 25px; }
+    .leyenda-item p { max-width: 250px; margin: 0 auto; }
 }

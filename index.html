@@ -37,17 +37,47 @@
 
     <div class="sticky-wrapper">
         
+        
         <div class="side-img-container">
             <img src="fotos/sanchez_izquierda.png" alt="Roberto Sánchez" class="side-img" onerror="this.src='https://via.placeholder.com/350x500?text=Sanchez'">
         </div>
-
+        
         <main class="center-column">
+            
             <article class="story-text">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                 <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida.</p>
             </article>
 
+            <section class="leyenda-seccion">
+                <h4 class="leyenda-titulo">LEYENDA</h4>
+                <div class="leyenda-grid">
+                    <div class="leyenda-item">
+                        <div class="leyenda-icono color-verdadero">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                        </div>
+                        <strong class="color-verdadero">VERDADERO</strong>
+                        <p>La afirmación es correcta y está respaldada por los datos.</p>
+                    </div>
+                    <div class="leyenda-item">
+                        <div class="leyenda-icono color-enganoso">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                        </div>
+                        <strong class="color-enganoso">ENGAÑOSO</strong>
+                        <p>La afirmación contiene elementos ciertos, pero omite información clave o puede inducir a error.</p>
+                    </div>
+                    <div class="leyenda-item">
+                        <div class="leyenda-icono color-falso">
+                            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.59 13.59L15.17 17 12 13.83 8.83 17 7.41 15.59 10.59 12 7.41 8.41 8.83 7 12 10.17 15.17 7l1.41 1.41L13.41 12l3.18 3.59z"/></svg>
+                        </div>
+                        <strong class="color-falso">FALSO</strong>
+                        <p>La afirmación es incorrecta y contradice los datos disponibles.</p>
+                    </div>
+                </div>
+            </section>
+
             <section id="fact-checking-feed" class="fact-feed"></section>
+
         </main>
 
         <div class="side-img-container">
@@ -58,17 +88,14 @@
 
     <footer class="special-credits-black">    
         <h3 class="credits-main-title">Créditos</h3>
-        
         <div class="credit-block">
             <span class="credit-role">Fact-checking</span>
             <span class="credit-name">Equipo ECData</span>
         </div>
-        
         <div class="credit-block">
             <span class="credit-role">Diseño y desarrollo</span>
             <span class="credit-name">Fabrizio Monge</span>
         </div>
-        
         <div class="credits-logo-container">
             <img src="fotos/logo_ecdata.png" alt="Logo ECData" onerror="this.style.display='none'">
             <div class="copyright-text">©2026 Empresa Editora El Comercio. Todos los derechos reservados</div>
