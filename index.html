@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keiko Fujimori vs. Roberto Sánchez: Comparador de Posturas - ECData</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="special-header">
+        <div class="kicker">
+            <img src="fotos/logo_ecdata.png" alt="Logo ECData" onerror="this.style.display='none'">
+        </div>
+        
+        <h1 class="headline">Frente a Frente</h1>
+        <h2 class="subheadline">El comparador interactivo de posturas presidenciales para la segunda vuelta</h2>
+        
+        <p class="intro-text">Fuerza Popular y Juntos por el Perú exponen visiones ideológicas encontradas. <strong>ECData</strong> estructuró un contrastador directo para revisar qué proponen, qué declaran en medios y cuáles han sido sus giros discursivos en el tiempo.</p>
+        
+        <div class="header-divider"></div>
+        <div class="date-published">25 de mayo de 2026</div>
+    </header>
+
+    <nav class="macro-nav-bar">
+        <div class="nav-container">
+            <button class="nav-tab active" data-target="economia" onclick="cambiarMacroCategoria('economia')"><span style="margin-right:6px">📈</span>Economía</button>
+            <button class="nav-tab" data-target="seguridad" onclick="cambiarMacroCategoria('seguridad')"><span style="margin-right:6px">🛡️</span>Seguridad</button>
+            <button class="nav-tab" data-target="institucional" onclick="cambiarMacroCategoria('institucional')"><span style="margin-right:6px">🏛️</span>Institucional</button>
+            <button class="nav-tab" data-target="genero" onclick="cambiarMacroCategoria('genero')"><span style="margin-right:6px">⚖️</span>Género y Derechos</button>
+        </div>
+    </nav>
+
+    <main id="comparador-container" class="comparador-wrapper">
+        </main>
+
+    <footer class="special-credits-black">    
+        <h3 class="credits-main-title">Créditos</h3>
+        
+        <div class="credit-block">
+            <span class="credit-role">Investigación y análisis de datos</span>
+            <span class="credit-name">Equipo ECData El Comercio</span>
+        </div>
+        
+        <div class="credit-block">
+            <span class="credit-role">Diseño y desarrollo frontend</span>
+            <span class="credit-name">Fabrizio Monge / Brainy Assistant</span>
+        </div>
+
+        <div class="credits-logo-container">
+            <img src="fotos/logo_ecdata.png" alt="Logo ECData" onerror="this.style.display='none'">
+            <div class="copyright-text">©2026 Empresa Editora El Comercio. Todos los derechos reservados</div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
