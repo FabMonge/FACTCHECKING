@@ -1,9 +1,12 @@
 // ===============================================
-// CONFIGURACIÓN GLOBAL, SVGs Y FAIL-SAFES
+// ESTADO GLOBAL Y CONFIGURACIÓN
 // ===============================================
+window.datosDebate = []; // Guarda todos los datos originales
+window.filtroActivo = null; // Guarda si hay algún filtro de candidato activo
+
 const CONFIG = {
     archivos: {
-        datos: "data_factchecking_debate.csv" // Conexión directa a la plantilla
+        datos: "data_factchecking_debate.csv"
     },
     iconos: {
         "VERDADERO": `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>`,
@@ -13,14 +16,10 @@ const CONFIG = {
     colores: {
         candidatos: {
             "Keiko Fujimori": { 
-                clase: "author-keiko", 
-                borde: "#f57c00",
                 foto: "fotos/keiko_derecha.png",
                 descripcion: "Candidata de Fuerza Popular"
             },
             "Roberto Sánchez": { 
-                clase: "author-sanchez", 
-                borde: "#2e7d32",
                 foto: "fotos/sanchez_izquierda.png",
                 descripcion: "Candidato de Juntos por el Perú"
             }
@@ -29,9 +28,56 @@ const CONFIG = {
             "VERDADERO": "badge-verdadero",
             "FALSO": "badge-falso",
             "ENGAÑOSO": "badge-enganoso"
+        },
+        bordeTarjeta: {
+            "VERDADERO": "#4caf50", 
+            "FALSO": "#e53935",     
+            "ENGAÑOSO": "#ffb300"   
         }
     }
 };
+
+// ===============================================
+// LÓGICA DE FILTRADO (INTERACTIVIDAD)
+// ===============================================
+function toggleFiltro(candidato) {
+    const btnKeiko = document.getElementById('btn-filtro-keiko');
+    const btnSanchez = document.getElementById('btn-filtro-sanchez');
+    const wrapKeiko = document.getElementById('wrapper-keiko');
+    const wrapSanchez = document.getElementById('wrapper-sanchez');
+
+    // 1. Restauramos el estado original (botones texto original, eliminamos active y mostramos fotos)
+    btnKeiko.innerText = "Ver solo a Keiko Fujimori";
+    btnKeiko.classList.remove('btn-active');
+    wrapKeiko.classList.remove('candidato-oculto');
+
+    btnSanchez.innerText = "Ver solo a Roberto Sánchez";
+    btnSanchez.classList.remove('btn-active');
+    wrapSanchez.classList.remove('candidato-oculto');
+
+    if (window.filtroActivo === candidato) {
+        // 2A. Apagamos el filtro si volvió a hacer clic
+        window.filtroActivo = null;
+        renderizarTarjetas(window.datosDebate);
+    } else {
+        // 2B. Encendemos el filtro
+        window.filtroActivo = candidato;
+        
+        if (candidato === 'Keiko Fujimori') {
+            btnKeiko.innerText = "Mostrar ambos candidatos";
+            btnKeiko.classList.add('btn-active');
+            wrapSanchez.classList.add('candidato-oculto'); // Desvanecemos a Roberto
+        } else {
+            btnSanchez.innerText = "Mostrar ambos candidatos";
+            btnSanchez.classList.add('btn-active');
+            wrapKeiko.classList.add('candidato-oculto'); // Desvanecemos a Keiko
+        }
+        
+        // Renderizamos solo las tarjetas filtradas
+        const datosFiltrados = window.datosDebate.filter(item => item.candidato === candidato);
+        renderizarTarjetas(datosFiltrados);
+    }
+}
 
 // ===============================================
 // MOTOR DE RENDERIZADO
@@ -40,28 +86,29 @@ function renderizarTarjetas(datos) {
     const contenedor = document.getElementById('fact-checking-feed');
     
     if (!datos || datos.length === 0) {
-        contenedor.innerHTML = `<p style="text-align:center; color:#e53935;">⚠️ Esperando datos del debate...</p>`;
+        contenedor.innerHTML = `<p style="text-align:center; color:#e53935;">⚠️ Esperando datos del debate o no hay resultados para el filtro.</p>`;
         return;
     }
 
     let htmlAcumulado = '';
 
     datos.forEach(item => {
-        // Validación de seguridad por si hay una fila en blanco
         if (!item.candidato || !item.frase) return;
 
-        const configCand = CONFIG.colores.candidatos[item.candidato.trim()] || { clase: "", borde: "#ccc", foto: "https://via.placeholder.com/55", descripcion: "Candidato a la Presidencia" };
+        const configCand = CONFIG.colores.candidatos[item.candidato.trim()] || { foto: "https://via.placeholder.com/55", descripcion: "Candidato a la Presidencia" };
         const keyCalificacion = (item.calificacion || "").trim().toUpperCase();
         const claseBadge = CONFIG.colores.calificaciones[keyCalificacion] || "";
         const iconoSVG = CONFIG.iconos[keyCalificacion] || "";
+        
+        const colorBorde = CONFIG.colores.bordeTarjeta[keyCalificacion] || "#ccc";
 
         htmlAcumulado += `
-            <article class="fact-card" style="border-top-color: ${configCand.borde};">
+            <article class="fact-card" style="border-top-color: ${colorBorde};">
                 <div class="fact-header">
                     <div class="fact-author-wrapper">
                         <img src="${configCand.foto}" alt="${item.candidato}" class="fact-author-img" onerror="this.src='https://via.placeholder.com/55?text=Foto'">
                         <div class="fact-author-text">
-                            <span class="fact-author-name ${configCand.clase}">${item.candidato}</span>
+                            <span class="fact-author-name">${item.candidato}</span>
                             <p class="fact-author-desc">${configCand.descripcion}</p>
                         </div>
                     </div>
@@ -81,21 +128,29 @@ function renderizarTarjetas(datos) {
 }
 
 // ===============================================
-// CARGA DE DATOS (PAPAPARSE) Y ARRANQUE
+// INICIALIZACIÓN Y EVENTOS
 // ===============================================
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // Eventos de filtrado
+    document.getElementById('btn-filtro-keiko').addEventListener('click', () => toggleFiltro('Keiko Fujimori'));
+    document.getElementById('btn-filtro-sanchez').addEventListener('click', () => toggleFiltro('Roberto Sánchez'));
+
+    // Carga de PapaParse
     Papa.parse(CONFIG.archivos.datos, {
-        download: true,       // Descarga el archivo CSV
-        header: true,         // Usa la primera fila como llaves del objeto
-        skipEmptyLines: true, // Ignora saltos de línea vacíos al final del excel
+        download: true,       
+        header: true,         
+        skipEmptyLines: true, 
         complete: function(results) {
             try {
                 if (results.errors.length > 0 && results.data.length === 0) {
                     console.error("Errores en el parseo:", results.errors);
                     throw new Error("Formato de CSV inválido");
                 }
-                // Si todo sale bien, mandamos la data a renderizar
-                renderizarTarjetas(results.data);
+                
+                window.datosDebate = results.data;
+                renderizarTarjetas(window.datosDebate);
+
             } catch (error) {
                 console.error("Error crítico procesando los datos:", error);
                 document.getElementById('fact-checking-feed').innerHTML = "<p style='text-align:center;'>⚠️ Ocurrió un problema procesando las tarjetas.</p>";
